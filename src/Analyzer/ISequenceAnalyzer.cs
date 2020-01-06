@@ -2,6 +2,9 @@
 {
     using System.IO;
 
+    /// <summary>
+    ///     An interface for a sequence analyzer.
+    /// </summary>
     public interface ISequenceAnalyzer
     {
         /// <summary>

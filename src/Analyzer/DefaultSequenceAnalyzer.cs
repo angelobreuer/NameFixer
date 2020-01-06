@@ -3,20 +3,37 @@
     using System;
     using System.IO;
 
+    /// <summary>
+    ///     The default implementation for the <see cref="ISequenceAnalyzer"/> interface.
+    /// </summary>
     public sealed class DefaultSequenceAnalyzer : ISequenceAnalyzer
     {
-        public static char[] DefaultSeparators { get; }
-            = new[] { ' ', '\t', '.', '-', '_' };
-
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="DefaultSequenceAnalyzer"/> class.
+        /// </summary>
         public DefaultSequenceAnalyzer() : this(DefaultSeparators)
         {
         }
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="DefaultSequenceAnalyzer"/> class.
+        /// </summary>
+        /// <param name="separators">the separators</param>
+        /// <exception cref="ArgumentNullException">
+        ///     thrown if the specified <paramref name="separators"/> array is <see langword="null"/>.
+        /// </exception>
         public DefaultSequenceAnalyzer(char[] separators)
-        {
-            Separators = separators ?? throw new ArgumentNullException(nameof(separators));
-        }
+            => Separators = separators ?? throw new ArgumentNullException(nameof(separators));
 
+        /// <summary>
+        ///     An array of characters used as the default parameter for the separators.
+        /// </summary>
+        public static char[] DefaultSeparators { get; }
+            = new[] { ' ', '\t', '.', '-', '_' };
+
+        /// <summary>
+        ///     Gets the separators.
+        /// </summary>
         public char[] Separators { get; }
 
         /// <inheritdoc/>

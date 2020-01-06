@@ -10,6 +10,9 @@
         private readonly Dictionary<FileInfo, string> _map;
         private readonly object _mapLock;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="FileNameMap"/> class.
+        /// </summary>
         public FileNameMap()
         {
             _mapLock = new object();

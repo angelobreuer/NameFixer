@@ -3,6 +3,9 @@
     using System.Globalization;
     using System.Resources;
 
+    /// <summary>
+    ///     A class that helps with localization strings.
+    /// </summary>
     internal static class Resources
     {
         private static ResourceManager _resourceManager;
