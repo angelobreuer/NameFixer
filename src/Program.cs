@@ -27,7 +27,7 @@
                 var ordinalNumber = information.Ordinal.ToString().PadLeft(options.Padding, '0');
                 var fileName = options.Format.Replace("{0}", ordinalNumber);
 
-                map.Register(information.Info, fileName);
+                map.Register(information.Info, fileName, options.PreserveExtension);
             }
 
             return true;

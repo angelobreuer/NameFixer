@@ -68,7 +68,7 @@
             }
         }
 
-        public void Register(FileInfo info, string name)
+        public void Register(FileInfo info, string name, bool preserveExtension = true)
         {
             if (!info.Exists)
             {
@@ -89,6 +89,17 @@
             {
                 throw new ArgumentException(
                     "The specified file name contains invalid characters.", nameof(name));
+            }
+
+            // check whether the extension of the base file should be preserved
+            if (preserveExtension)
+            {
+                // check whether the extension is already added to the file
+                if (!Path.GetExtension(name).Equals(info.Extension, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    // append extension
+                    name += info.Extension;
+                }
             }
 
             lock (_mapLock)

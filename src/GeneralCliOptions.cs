@@ -9,5 +9,8 @@
 
         [Option('v', "verbose")]
         public bool Verbose { get; set; }
+
+        [Option('e', "preserve-extension")]
+        public bool PreserveExtension { get; set; }
     }
 }
