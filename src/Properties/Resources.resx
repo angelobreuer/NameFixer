@@ -121,10 +121,97 @@
     <value>Warning could not extract ordinal number: {0}, skipping file...</value>
     <comment>{0} = File path</comment>
   </data>
+  <data name="FolderOptionDescription" xml:space="preserve">
+    <value>The folder where the files to rename are located in</value>
+  </data>
+  <data name="FormatOptionDescription" xml:space="preserve">
+    <value>The format of the resulting filename. '{0}' is replaced with the ordinal sequence number.</value>
+  </data>
   <data name="MapGenerationFailed" xml:space="preserve">
     <value>Failed to generate file name map.</value>
   </data>
+  <data name="PaddingOptionDescription" xml:space="preserve">
+    <value>The padding for the sequence number.</value>
+  </data>
+  <data name="PreserveExtensionOptionDescription" xml:space="preserve">
+    <value>Enables that the extension of the resulting file should be preserved.</value>
+  </data>
   <data name="RunningSimulation" xml:space="preserve">
     <value>Running simulation...</value>
+  </data>
+  <data name="SentenceBadFormatConversionErrorOption" xml:space="preserve">
+    <value>The option '{0}' has an invalid formatting.</value>
+  </data>
+  <data name="SentenceBadFormatConversionErrorValue" xml:space="preserve">
+    <value>A value not bound to option name is defined with a bad format.</value>
+  </data>
+  <data name="SentenceBadFormatTokenError" xml:space="preserve">
+    <value>The token '{0}' is not recognized.</value>
+  </data>
+  <data name="SentenceBadVerbSelectedError" xml:space="preserve">
+    <value>Verb '{0}' not recognized.</value>
+  </data>
+  <data name="SentenceErrorsHeadingText" xml:space="preserve">
+    <value>Error(s):</value>
+  </data>
+  <data name="SentenceHelpCommandTextOption" xml:space="preserve">
+    <value>Displays this help screen.</value>
+  </data>
+  <data name="SentenceHelpCommandTextVerb" xml:space="preserve">
+    <value>Display more information about a specific command.</value>
+  </data>
+  <data name="SentenceMissingRequiredOptionError" xml:space="preserve">
+    <value>The required option '{0}' is missing.</value>
+  </data>
+  <data name="SentenceMissingRequiredValueError" xml:space="preserve">
+    <value>A required value is missing.</value>
+  </data>
+  <data name="SentenceMissingValueOptionError" xml:space="preserve">
+    <value>The option '{0}' has no value.</value>
+  </data>
+  <data name="SentenceMutuallyExclusiveSetErrors" xml:space="preserve">
+    <value>The options: {0} are not compatible with {1}.</value>
+  </data>
+  <data name="SentenceNoVerbSelectedError" xml:space="preserve">
+    <value>No verb selected.</value>
+  </data>
+  <data name="SentenceOptionGroupWord" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="SentenceRepeatedOptionError" xml:space="preserve">
+    <value>Option '{0}' is defined multiple times.</value>
+  </data>
+  <data name="SentenceRequiredWord" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="SentenceSequenceOutOfRangeErrorOption" xml:space="preserve">
+    <value>A sequence option '{0}' is defined with fewer or more items than required.</value>
+  </data>
+  <data name="SentenceSequenceOutOfRangeErrorValue" xml:space="preserve">
+    <value>A sequence value not bound to option name is defined with few items than required.</value>
+  </data>
+  <data name="SentenceSetValueExceptionError" xml:space="preserve">
+    <value>Error setting value to option '{0}': {1}.</value>
+  </data>
+  <data name="SentenceUnknownOptionError" xml:space="preserve">
+    <value>Option '{0}' is unknown.</value>
+  </data>
+  <data name="SentenceUsageHeadingText" xml:space="preserve">
+    <value>Usage:</value>
+  </data>
+  <data name="SentenceVersionCommandText" xml:space="preserve">
+    <value>Displays version information.</value>
+  </data>
+  <data name="SequencePrefixOptionDescription" xml:space="preserve">
+    <value>The prefix that must be before the ordinal number of the original file name to extract from.</value>
+  </data>
+  <data name="SequenceVerbDescription" xml:space="preserve">
+    <value>Orders files in a sequence.</value>
+  </data>
+  <data name="SimulateOptionDescription" xml:space="preserve">
+    <value>Enables simulation. This will not move any files.</value>
+  </data>
+  <data name="VerboseOptionDescription" xml:space="preserve">
+    <value>Enables verbose / advanced logging.</value>
   </data>
 </root>

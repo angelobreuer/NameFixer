@@ -4,6 +4,7 @@
     using System.IO;
     using System.Linq;
     using CommandLine;
+    using CommandLine.Text;
     using NameFixer.Analyzer;
     using NameFixer.Properties;
 
@@ -49,6 +50,8 @@
         /// <returns>the process exit code to return</returns>
         private static int Main(string[] args)
         {
+            SentenceBuilder.Factory = () => new LocalizableSentenceBuilder();
+
             return Parser.Default.ParseArguments<SequenceCliOptions>(args).MapResult(
                 options => RenameAll(options, HandleSequenceVerb),
                 errors => 1);
