@@ -24,8 +24,7 @@
                 // iterate through entries
                 foreach (var (key, value) in _map)
                 {
-                    // print out mapping
-                    output?.WriteLine($"{key} -> {value}");
+                    DumpEntry(key, value, output);
 
                     var newPath = Path.Combine(key.Directory.FullName, value);
                     if (!newPath.Equals(key.FullName))
@@ -63,7 +62,7 @@
                 foreach (var (key, value) in _map)
                 {
                     // print out mapping
-                    writer.WriteLine($"{key} -> {value}");
+                    DumpEntry(key, value, writer);
                 }
             }
         }
@@ -131,6 +130,19 @@
                     _map.Add(key, value);
                 }
             }
+        }
+
+        private void DumpEntry(FileInfo file, string name, TextWriter output = null)
+        {
+            if (output is null)
+            {
+                return;
+            }
+
+            var path = Path.GetRelativePath(Directory.GetCurrentDirectory(), file.FullName);
+
+            // print out mapping
+            output?.WriteLine($"{path} -> {name}");
         }
     }
 }

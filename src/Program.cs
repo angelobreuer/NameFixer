@@ -7,8 +7,17 @@
     using NameFixer.Analyzer;
     using NameFixer.Properties;
 
+    /// <summary>
+    ///     A class that contains the main-entry point.
+    /// </summary>
     internal sealed class Program
     {
+        /// <summary>
+        ///     Generates the map for the sequence verb.
+        /// </summary>
+        /// <param name="options">the options</param>
+        /// <param name="map">the map</param>
+        /// <returns>a value indicating whether the map could be generated</returns>
         private static bool HandleSequenceVerb(SequenceCliOptions options, FileNameMap map)
         {
             var files = Directory.EnumerateFiles(options.Folder).Select(s => new FileInfo(s));
@@ -33,6 +42,11 @@
             return true;
         }
 
+        /// <summary>
+        ///     Runs the application.
+        /// </summary>
+        /// <param name="args">the CLI arguments</param>
+        /// <returns>the process exit code to return</returns>
         private static int Main(string[] args)
         {
             return Parser.Default.ParseArguments<SequenceCliOptions>(args).MapResult(
@@ -40,6 +54,13 @@
                 errors => 1);
         }
 
+        /// <summary>
+        ///     Renames all files.
+        /// </summary>
+        /// <typeparam name="TOptions">the type of the options</typeparam>
+        /// <param name="options">the options</param>
+        /// <param name="mapFunction">the map generation function</param>
+        /// <returns>the exit code</returns>
         private static int RenameAll<TOptions>(
             TOptions options, Func<TOptions, FileNameMap, bool> mapFunction)
             where TOptions : GeneralCliOptions
