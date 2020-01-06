@@ -121,10 +121,97 @@
     <value>Warnung: Konnte keine Ordinalnummer extrahieren: "{0}", überspringe Datei...</value>
     <comment>{0} = File path</comment>
   </data>
+  <data name="FolderOptionDescription" xml:space="preserve">
+    <value>Der Ordner mit den zu-umbennenden Dateien.</value>
+  </data>
+  <data name="FormatOptionDescription" xml:space="preserve">
+    <value>Das Format des Zielnamens, dabei wird "{0}" durch die Sequenznummer ersetzt.</value>
+  </data>
   <data name="MapGenerationFailed" xml:space="preserve">
     <value>Die Dateinamen-Map konnte nicht generiert werden.</value>
   </data>
+  <data name="PaddingOptionDescription" xml:space="preserve">
+    <value>Die minimale Länge der Sequenznummer. Falls die Sequenznummer nicht der minimalen Länge entspricht wird sie von links mit nullen aufgefüllt.</value>
+  </data>
+  <data name="PreserveExtensionOptionDescription" xml:space="preserve">
+    <value>Aktiviert, dass Dateierweiterungen erhalten bleiben sollen.</value>
+  </data>
   <data name="RunningSimulation" xml:space="preserve">
     <value>Starte Simulation...</value>
+  </data>
+  <data name="SentenceBadFormatConversionErrorOption" xml:space="preserve">
+    <value>Die Option '{0}' hat einen falsch-formatierten Wert.</value>
+  </data>
+  <data name="SentenceBadFormatConversionErrorValue" xml:space="preserve">
+    <value>Ein Wert ist falsch formatiert.</value>
+  </data>
+  <data name="SentenceBadFormatTokenError" xml:space="preserve">
+    <value>Der Schlüssel '{0}' ist unbekannt.</value>
+  </data>
+  <data name="SentenceBadVerbSelectedError" xml:space="preserve">
+    <value>Der Unterbefehl '{0}' ist unbekannt.</value>
+  </data>
+  <data name="SentenceErrorsHeadingText" xml:space="preserve">
+    <value>Fehler:</value>
+  </data>
+  <data name="SentenceHelpCommandTextOption" xml:space="preserve">
+    <value>Zeigt diesen Hilfebildschirm an.</value>
+  </data>
+  <data name="SentenceHelpCommandTextVerb" xml:space="preserve">
+    <value>Zeigt mehr Informationen über einen bestimmten Befehl an.</value>
+  </data>
+  <data name="SentenceMissingRequiredOptionError" xml:space="preserve">
+    <value>Ein benötigter Wert fehlt.</value>
+  </data>
+  <data name="SentenceMissingRequiredValueError" xml:space="preserve">
+    <value>Ein benötigter Wert fehlt.</value>
+  </data>
+  <data name="SentenceMissingValueOptionError" xml:space="preserve">
+    <value>Die Option '{0}' hat keinen festgelegten Wert.</value>
+  </data>
+  <data name="SentenceMutuallyExclusiveSetErrors" xml:space="preserve">
+    <value>Die Optionen '{0}' sind nicht kompatibel mit '{1}'.</value>
+  </data>
+  <data name="SentenceNoVerbSelectedError" xml:space="preserve">
+    <value>Kein Unterbefehl ausgewählt</value>
+  </data>
+  <data name="SentenceOptionGroupWord" xml:space="preserve">
+    <value>Gruppe</value>
+  </data>
+  <data name="SentenceRepeatedOptionError" xml:space="preserve">
+    <value>Die Option '{0}' hat mehrere Vorkommnisse.</value>
+  </data>
+  <data name="SentenceRequiredWord" xml:space="preserve">
+    <value>(Erforderlich)</value>
+  </data>
+  <data name="SentenceSequenceOutOfRangeErrorOption" xml:space="preserve">
+    <value>A sequence option '{0}' is defined with fewer or more items than required.</value>
+  </data>
+  <data name="SentenceSequenceOutOfRangeErrorValue" xml:space="preserve">
+    <value>Eine Sequenzoption hat weniger Eingaben als erlaubt.</value>
+  </data>
+  <data name="SentenceSetValueExceptionError" xml:space="preserve">
+    <value>Fehler beim Setzen des Wertes {0} für die Einstellung {1}.</value>
+  </data>
+  <data name="SentenceUnknownOptionError" xml:space="preserve">
+    <value>Die Einstellung {0} ist unbekannt.</value>
+  </data>
+  <data name="SentenceUsageHeadingText" xml:space="preserve">
+    <value>Benutzung:</value>
+  </data>
+  <data name="SentenceVersionCommandText" xml:space="preserve">
+    <value>Zeigt die Versionsinformationen an.</value>
+  </data>
+  <data name="SequencePrefixOptionDescription" xml:space="preserve">
+    <value>Die Präfix die vor der Sequenznummer im Dateinamen stehen muss.</value>
+  </data>
+  <data name="SequenceVerbDescription" xml:space="preserve">
+    <value>Ordnet Dateien in einer Sequenz.</value>
+  </data>
+  <data name="SimulateOptionDescription" xml:space="preserve">
+    <value>Aktiviert die Simulation. Die Dateien werden dabei nicht umbenannt.</value>
+  </data>
+  <data name="VerboseOptionDescription" xml:space="preserve">
+    <value>Aktiviert die erweiterte Protokollierung.</value>
   </data>
 </root>
