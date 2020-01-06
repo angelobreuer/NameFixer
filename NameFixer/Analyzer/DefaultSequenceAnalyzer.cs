@@ -1,0 +1,50 @@
+﻿namespace NameFixer.Analyzer
+{
+    using System;
+    using System.IO;
+
+    public sealed class DefaultSequenceAnalyzer : ISequenceAnalyzer
+    {
+        public static char[] DefaultSeparators { get; }
+            = new[] { ' ', '\t', '.', '-', '_' };
+
+        public DefaultSequenceAnalyzer() : this(DefaultSeparators)
+        {
+        }
+
+        public DefaultSequenceAnalyzer(char[] separators)
+        {
+            Separators = separators ?? throw new ArgumentNullException(nameof(separators));
+        }
+
+        public char[] Separators { get; }
+
+        /// <inheritdoc/>
+        public bool TryExtract(FileInfo file, string prefix, out int value)
+        {
+            var hasPrefix = !string.IsNullOrEmpty(prefix);
+            var prefixLength = hasPrefix ? prefix.Length : 0;
+
+            for (var index = 0; index < file.Name.Length; index++)
+            {
+                var prefixIndex = hasPrefix ? file.Name.IndexOf(prefix, index) + prefixLength : index;
+                var part = file.Name.Substring(prefixIndex, file.Name.Length - prefixIndex);
+                var partIndex = 0;
+
+                for (; partIndex < part.Length && char.IsNumber(part[partIndex]); partIndex++)
+                {
+                }
+
+                if (partIndex > 0)
+                {
+                    // found number
+                    value = int.Parse(part.Substring(0, partIndex));
+                    return true;
+                }
+            }
+
+            value = default;
+            return false;
+        }
+    }
+}
