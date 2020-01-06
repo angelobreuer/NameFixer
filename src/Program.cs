@@ -53,14 +53,21 @@
                 return 4;
             }
 
+            // the output to print the verbose output to
+            var verboseOutput = options.Verbose ? Console.Out : null;
+
             if (options.Simulate)
             {
                 Console.WriteLine(Resources.RunningSimulation);
-                map.Dump(Console.Out);
+
+                if (verboseOutput != null)
+                {
+                    map.Dump(verboseOutput);
+                }
             }
             else
             {
-                map.Apply(clear: true, Console.Out);
+                map.Apply(clear: true, verboseOutput);
             }
 
             // success
