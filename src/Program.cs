@@ -14,10 +14,20 @@
             var analyzers = new ISequenceAnalyzer[] { new DefaultSequenceAnalyzer() };
             var result = SequenceAnalyzer.AnalyzeSequence(files, analyzers, options.SequencePrefix);
 
-            // register mappings
-            map.RegisterAll(result,
-                s => s.Info,
-                s => options.Format.Replace("{0}", s.Ordinal.ToString().PadLeft(options.Padding, '0')));
+            foreach (var information in result)
+            {
+                if (information.Ordinal is null)
+                {
+                    Console.WriteLine($"Warning could not extract ordinal number: {information.Info.FullName}, skipping file...");
+                    continue;
+                }
+
+                // register mappings
+                var ordinalNumber = information.Ordinal.ToString().PadLeft(options.Padding, '0');
+                var fileName = options.Format.Replace("{0}", ordinalNumber);
+
+                map.Register(information.Info, fileName);
+            }
 
             return true;
         }
