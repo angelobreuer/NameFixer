@@ -142,7 +142,7 @@
             var path = Path.GetRelativePath(Directory.GetCurrentDirectory(), file.FullName);
 
             // print out mapping
-            output?.WriteLine($"{path} -> {name}");
+            output.WriteLine($"{path} -> {name}");
         }
     }
 }
