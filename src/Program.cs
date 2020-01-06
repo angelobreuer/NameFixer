@@ -5,6 +5,7 @@
     using System.Linq;
     using CommandLine;
     using NameFixer.Analyzer;
+    using NameFixer.Properties;
 
     internal sealed class Program
     {
@@ -18,7 +19,7 @@
             {
                 if (information.Ordinal is null)
                 {
-                    Console.WriteLine($"Warning could not extract ordinal number: {information.Info.FullName}, skipping file...");
+                    Console.WriteLine(string.Format(Resources.CouldNotExtractOrdinal, information.Info.FullName));
                     continue;
                 }
 
@@ -48,13 +49,13 @@
             if (!mapFunction(options, map))
             {
                 // failed to generate map
-                Console.Error.WriteLine("Failed to generate file name map.");
+                Console.Error.WriteLine(Resources.MapGenerationFailed);
                 return 4;
             }
 
             if (options.Simulate)
             {
-                Console.WriteLine("Running simulation...");
+                Console.WriteLine(Resources.RunningSimulation);
                 map.Dump(Console.Out);
             }
             else
