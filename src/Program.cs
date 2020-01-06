@@ -59,11 +59,7 @@
             if (options.Simulate)
             {
                 Console.WriteLine(Resources.RunningSimulation);
-
-                if (verboseOutput != null)
-                {
-                    map.Dump(verboseOutput);
-                }
+                map.Dump(Console.Out);
             }
             else
             {
