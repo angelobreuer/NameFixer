@@ -1,151 +1,150 @@
-﻿namespace NameFixer
+﻿namespace NameFixer;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+public sealed class FileNameMap
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
+    private readonly Dictionary<FileInfo, string> _map;
+    private readonly object _mapLock;
 
-    public sealed class FileNameMap
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="FileNameMap"/> class.
+    /// </summary>
+    public FileNameMap()
     {
-        private readonly Dictionary<FileInfo, string> _map;
-        private readonly object _mapLock;
+        _mapLock = new object();
+        _map = new Dictionary<FileInfo, string>();
+    }
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="FileNameMap"/> class.
-        /// </summary>
-        public FileNameMap()
+    public void Apply(bool clear = true, TextWriter output = null)
+    {
+        // acquire map lock
+        lock (_mapLock)
         {
-            _mapLock = new object();
-            _map = new Dictionary<FileInfo, string>();
-        }
-
-        public void Apply(bool clear = true, TextWriter output = null)
-        {
-            // acquire map lock
-            lock (_mapLock)
+            // iterate through entries
+            foreach (var (key, value) in _map)
             {
-                // iterate through entries
-                foreach (var (key, value) in _map)
-                {
-                    DumpEntry(key, value, output);
+                DumpEntry(key, value, output);
 
-                    var newPath = Path.Combine(key.Directory.FullName, value);
-                    if (!newPath.Equals(key.FullName))
-                    {
-                        File.Move(key.FullName, newPath);
-                    }
-                }
-
-                if (clear)
+                var newPath = Path.Combine(key.Directory.FullName, value);
+                if (!newPath.Equals(key.FullName))
                 {
-                    _map.Clear();
+                    File.Move(key.FullName, newPath);
                 }
             }
-        }
 
-        public void Clear()
-        {
-            lock (_mapLock)
+            if (clear)
             {
                 _map.Clear();
             }
         }
+    }
 
-        public void Dump(TextWriter writer)
+    public void Clear()
+    {
+        lock (_mapLock)
         {
-            if (writer is null)
-            {
-                throw new ArgumentNullException(nameof(writer));
-            }
+            _map.Clear();
+        }
+    }
 
-            // acquire map lock
-            lock (_mapLock)
+    public void Dump(TextWriter writer)
+    {
+        if (writer is null)
+        {
+            throw new ArgumentNullException(nameof(writer));
+        }
+
+        // acquire map lock
+        lock (_mapLock)
+        {
+            // iterate through entries
+            foreach (var (key, value) in _map)
             {
-                // iterate through entries
-                foreach (var (key, value) in _map)
-                {
-                    // print out mapping
-                    DumpEntry(key, value, writer);
-                }
+                // print out mapping
+                DumpEntry(key, value, writer);
+            }
+        }
+    }
+
+    public void Register(FileInfo info, string name, bool preserveExtension = true)
+    {
+        if (!info.Exists)
+        {
+            throw new FileNotFoundException(info.FullName);
+        }
+
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException("The specified name can not be blank.", nameof(name));
+        }
+
+        if (info is null)
+        {
+            throw new ArgumentNullException(nameof(info));
+        }
+
+        if (Path.GetInvalidFileNameChars().Intersect(name).Any())
+        {
+            throw new ArgumentException(
+                "The specified file name contains invalid characters.", nameof(name));
+        }
+
+        // check whether the extension of the base file should be preserved
+        if (preserveExtension)
+        {
+            // check whether the extension is already added to the file
+            if (!Path.GetExtension(name).Equals(info.Extension, StringComparison.InvariantCultureIgnoreCase))
+            {
+                // append extension
+                name += info.Extension;
             }
         }
 
-        public void Register(FileInfo info, string name, bool preserveExtension = true)
+        lock (_mapLock)
         {
-            if (!info.Exists)
-            {
-                throw new FileNotFoundException(info.FullName);
-            }
+            _map[info] = name;
+        }
+    }
 
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("The specified name can not be blank.", nameof(name));
-            }
+    public void RegisterAll<T>(IEnumerable<T> enumerable, Func<T, FileInfo> fileMapper, Func<T, string> nameMapper)
+        => RegisterAll(enumerable.ToDictionary(fileMapper, nameMapper));
 
-            if (info is null)
-            {
-                throw new ArgumentNullException(nameof(info));
-            }
+    public void RegisterAll(IEnumerable<FileInfo> files, Func<FileInfo, string> mapper)
+        => RegisterAll(files, s => s, mapper);
 
-            if (Path.GetInvalidFileNameChars().Intersect(name).Any())
-            {
-                throw new ArgumentException(
-                    "The specified file name contains invalid characters.", nameof(name));
-            }
-
-            // check whether the extension of the base file should be preserved
-            if (preserveExtension)
-            {
-                // check whether the extension is already added to the file
-                if (!Path.GetExtension(name).Equals(info.Extension, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    // append extension
-                    name += info.Extension;
-                }
-            }
-
-            lock (_mapLock)
-            {
-                _map[info] = name;
-            }
+    public void RegisterAll(IEnumerable<KeyValuePair<FileInfo, string>> entries)
+    {
+        if (entries is null)
+        {
+            throw new ArgumentNullException(nameof(entries));
         }
 
-        public void RegisterAll<T>(IEnumerable<T> enumerable, Func<T, FileInfo> fileMapper, Func<T, string> nameMapper)
-            => RegisterAll(enumerable.ToDictionary(fileMapper, nameMapper));
-
-        public void RegisterAll(IEnumerable<FileInfo> files, Func<FileInfo, string> mapper)
-            => RegisterAll(files, s => s, mapper);
-
-        public void RegisterAll(IEnumerable<KeyValuePair<FileInfo, string>> entries)
+        // acquire map lock
+        lock (_mapLock)
         {
-            if (entries is null)
+            // iterate through entries
+            foreach (var (key, value) in entries)
             {
-                throw new ArgumentNullException(nameof(entries));
-            }
-
-            // acquire map lock
-            lock (_mapLock)
-            {
-                // iterate through entries
-                foreach (var (key, value) in entries)
-                {
-                    // add to dictionary
-                    _map.Add(key, value);
-                }
+                // add to dictionary
+                _map.Add(key, value);
             }
         }
+    }
 
-        private void DumpEntry(FileInfo file, string name, TextWriter output = null)
+    private void DumpEntry(FileInfo file, string name, TextWriter output = null)
+    {
+        if (output is null)
         {
-            if (output is null)
-            {
-                return;
-            }
-
-            var path = Path.GetRelativePath(Directory.GetCurrentDirectory(), file.FullName);
-
-            // print out mapping
-            output.WriteLine($"{path} -> {name}");
+            return;
         }
+
+        var path = Path.GetRelativePath(Directory.GetCurrentDirectory(), file.FullName);
+
+        // print out mapping
+        output.WriteLine($"{path} -> {name}");
     }
 }
